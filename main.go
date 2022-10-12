@@ -49,7 +49,7 @@ func main() {
 		fmt.Println(err)
 	}
 
-	fmt.Println("testy")
+	fmt.Println("testyyy")
 }
 
 func TrimName(s, suffix string) string {
