@@ -48,6 +48,8 @@ func main() {
 	if err := scanner.Err(); err != nil {
 		fmt.Println(err)
 	}
+
+	fmt.Println("testy")
 }
 
 func TrimName(s, suffix string) string {
