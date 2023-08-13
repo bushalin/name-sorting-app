@@ -32,24 +32,38 @@ func main() {
 
 	// reading file contents
 	scanner := bufio.NewScanner(f)
-	scanner.Split(bufio.ScanWords)
+	scanner.Split(bufio.ScanLines)
 
 	var nameSlice []string
 
 	for scanner.Scan() {
-		trimmedName := TrimName(string(scanner.Bytes()), ",")
-		nameSlice = append(nameSlice, trimmedName)
+		// trimmedName := TrimName(string(scanner.Bytes()), ",")
+		nameSlice = append(nameSlice, scanner.Text())
 	}
 
-	sort.Strings(nameSlice)
+	// sort.Strings(nameSlice)
 
-	PrintResult(nameSlice)
+	sss := PrintResult(nameSlice)
+	sort.Slice(sss, func(i, j int) bool {
+		asc1 := 0
+		asc2 := 0
+		for _, v := range sss[i] {
+			asc1 += int(v)
+		}
+		for _, v := range sss[j] {
+			asc2 += int(v)
+		}
+
+		return asc1 > asc2
+	})
+
+	for _, s := range sss {
+		fmt.Println(s)
+	}
 
 	if err := scanner.Err(); err != nil {
 		fmt.Println(err)
 	}
-
-	fmt.Println("testyyy")
 }
 
 func TrimName(s, suffix string) string {
@@ -65,8 +79,12 @@ func TrimName(s, suffix string) string {
 	return s
 }
 
-func PrintResult(s []string) {
+func PrintResult(s []string) []string {
+	sss := []string{}
 	for _, v := range s {
-		fmt.Println(v)
+		ss := strings.Split(v, ",")
+		sss = append(sss, ss...)
 	}
+
+	return sss
 }
